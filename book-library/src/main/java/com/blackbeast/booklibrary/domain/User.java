@@ -13,7 +13,7 @@ public class User {
     private String password;
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 
     private List<Role> roles;
 
