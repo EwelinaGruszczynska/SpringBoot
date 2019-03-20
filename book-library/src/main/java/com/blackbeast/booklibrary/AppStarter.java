@@ -4,6 +4,7 @@ import com.blackbeast.booklibrary.domain.Author;
 import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.services.BookService;
+import com.blackbeast.booklibrary.services.HireService;
 import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,11 +19,14 @@ public class AppStarter implements CommandLineRunner {
     BookService bookService;
     @Autowired
     UserService userService;
+    @Autowired
+    HireService hireService;
+
 
     @Override
     public void run(String... args) throws Exception {
-        //init();
-        //initUser();
+        System.out.println(">>>>>>>>" + hireService.getHireByBookId(4).size());
+
     }
 
     public void init(){

@@ -4,6 +4,8 @@ import com.blackbeast.booklibrary.domain.Role;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,16 +30,31 @@ public class UserService {
 
 
 
-    public void addRoleToUser (String username, String roleName){
-        if (username!= null && roleName != null){
-    User user = userRepository.getUser(username);
+    public void addRoleToUser (String username, String roleName) {
+        if (username != null && roleName != null) {
+            User user = userRepository.getUser(username);
             System.out.println(">>>>>>>" + user.getRoles() == null);
 
-    if (user != null){
-        Role role = new Role(roleName);
-        userRepository.addRoleToUser (user, role);
-    }
+            if (user != null) {
+                Role role = new Role(roleName);
+                userRepository.addRoleToUser(user, role);
+            }
         }
     }
+    public User getUser(String username){
+        return userRepository.getUser(username);
+    }
 
+    public User getLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(auth != null) {
+            String username = auth.getName();
+            return  getUser(username);
+        }else
+            return null;
+
+    }
 }
+
+
