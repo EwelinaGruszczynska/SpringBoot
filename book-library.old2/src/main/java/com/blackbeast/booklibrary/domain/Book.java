@@ -13,11 +13,11 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "Tytuł nie może być pusty")
+    @NotNull
     @Size(min=2, message = "Tytuł musi posiadać co najmniej 2 litery")
     private String title;
 
-    @NotNull(message = "Rok wydania nie może być pusty")
+    @NotNull
     @Range(min=1, max=9999, message = "Rok wydania musi być z przedziału 1 - 9999")
     private Integer year;
     private String publisher;
@@ -26,7 +26,7 @@ public class Book {
     @OneToOne
     private Author author;
 
-    @OneToMany(mappedBy = "hiredBook", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hiredBook",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Hire> hires;
 
     public Book(){

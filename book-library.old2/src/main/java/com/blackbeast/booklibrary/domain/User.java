@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -17,6 +16,7 @@ public class User {
     private String lastName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
     private List<Role> roles;
 
     public User() {
@@ -78,7 +78,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void addRole(Role role) {
+    public  void  addRole(Role role) {
         if(role != null)
             this.roles.add(role);
     }

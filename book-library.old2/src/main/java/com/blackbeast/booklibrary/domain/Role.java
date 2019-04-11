@@ -4,14 +4,13 @@ import javax.persistence.*;
 
 @Entity
 public class Role {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn (name = "userId")
     private User user;
 
     public Role() {

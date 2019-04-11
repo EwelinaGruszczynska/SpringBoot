@@ -40,9 +40,8 @@ public class BookRepository {
         if(book != null)
             em.remove(book);
     }
-
     public Collection<Book> getBooksByAuthor(String authorName){
-        return em.createQuery("from Book b WHERE LOWER(b.author.name) LIKE CONCAT('%',:authorName,'%')", Book.class)
+        return em.createQuery("from Book b WHERE LOWER (b.author.name) LIKE CONCAT('%',:authorName, '%')", Book.class)
                 .setParameter("authorName", authorName.toLowerCase())
                 .getResultList();
     }
@@ -51,25 +50,25 @@ public class BookRepository {
         String query = "from Book b";
         String conditions = "";
 
-        if(year != null)
+        if (year != null)
             conditions += "b.year = :year";
 
-        if(publisher != null)
-            if(conditions.isEmpty())
+        if (publisher != null)
+            if (conditions.isEmpty())
                 conditions += "b.publisher = :publisher";
             else
                 conditions += " AND b.publisher = :publisher";
 
-        if(isbn != null)
-            if(isbn.isEmpty())
+        if (isbn != null)
+            if (conditions.isEmpty())
                 conditions += "b.isbn = :isbn";
             else
                 conditions += " AND b.isbn = :isbn";
 
-        if(!conditions.isEmpty())
+        if (!conditions.isEmpty())
             query += " WHERE " + conditions;
 
-        System.out.println(query);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>" + query);
 
         TypedQuery typedQuery = em.createQuery(query, Book.class);
 
@@ -83,12 +82,5 @@ public class BookRepository {
             typedQuery.setParameter("isbn", isbn);
 
         return typedQuery.getResultList();
-    }
-
-    public Collection<Book> getBooksByTitle(String title){
-        return em.createQuery("from Book b WHERE LOWER(b.title) LIKE CONCAT('%',:title,'%')", Book.class)
-                .setParameter("title", title.toLowerCase())
-                .getResultList();
-    }
-
+        }
 }

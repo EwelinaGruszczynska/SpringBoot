@@ -5,11 +5,9 @@ import java.util.Date;
 
 @Entity
 public class Hire {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Date hireDate;
     private Date plannedGiveBackDate;
     private Date realGiveBackDate;
@@ -18,7 +16,7 @@ public class Hire {
     private User hireUser;
 
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn (name = "bookId")
     private Book hiredBook;
 
     public Long getId() {

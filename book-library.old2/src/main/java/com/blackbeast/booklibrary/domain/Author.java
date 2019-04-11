@@ -1,23 +1,22 @@
 package com.blackbeast.booklibrary.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class Role {
-
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    public Author() {
 
-    public Role() {
     }
 
-    public Role(String name) {
+    public Author(String name) {
         this.name = name;
     }
 
@@ -35,13 +34,5 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

@@ -10,38 +10,51 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserService {
     @Autowired
     UserRepository userRepository;
 
     public void createUser(String username, String password) {
-        if(username != null && password != null) {
+        if (username != null && password != null) {
+
             PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-            User user = new User(username, pe.encode(password));
+            User user = new User (username, pe.encode(password));
             userRepository.addUser(user);
+
         }
     }
 
-    public void addRoleToUser(String username, String roleName){
-        if(username != null && roleName != null) {
-            Role role = new Role(roleName);
-            userRepository.addRoleToUser(username, role);
+
+
+    public void addRoleToUser (String username, String roleName) {
+        if (username != null && roleName != null) {
+            User user = userRepository.getUser(username);
+            System.out.println(">>>>>>>" + user.getRoles() == null);
+
+            if (user != null) {
+                Role role = new Role(roleName);
+                userRepository.addRoleToUser(user, role);
+            }
         }
     }
-
-    public User getUser(String username) {
+    public User getUser(String username){
         return userRepository.getUser(username);
     }
 
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if(auth != null){
+        if(auth != null) {
             String username = auth.getName();
-            return getUser(username);
+            return  getUser(username);
         }else
             return null;
+
     }
 }
+
+
