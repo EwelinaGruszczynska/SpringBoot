@@ -20,14 +20,5 @@ public class BookLibraryApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
-	@Test
-	public void getBooksByAuthorTest(){
-		Collection<Book> books = bookRepository.getBooksByAuthor("Henryk Sienkiewicz");
-		System.out.println("Book size >>> " + books.size());
-		System.out.println("Content >>> " + books);
-		assert books.size() == 3;
-	}
-
 }
 
