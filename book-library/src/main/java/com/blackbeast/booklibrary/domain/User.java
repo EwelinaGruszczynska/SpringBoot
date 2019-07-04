@@ -1,6 +1,8 @@
 package com.blackbeast.booklibrary.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotNull(message = "Nazwa użytkownika nie może być pusta")
+    @Size(min=3, message = "Nazwa użytwkonika musi posiadać co najmniej 3 znaki")
     private String username;
+
+    @NotNull(message = "Hasło nie może być puste")
+    @Size(min=3, message = "Hasło musi posiadać co najmniej 3 znaki")
     private String password;
+
+
     private Boolean enabled;
     private String firstName;
     private String lastName;
